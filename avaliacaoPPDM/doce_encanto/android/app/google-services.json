@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "812202191480",
+    "project_id": "doce-encanto-526a3",
+    "storage_bucket": "doce-encanto-526a3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812202191480:android:364058ebe849bc76575b8d",
+        "android_client_info": {
+          "package_name": "com.DoceEncanto.doce_encanto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqJXfh4YWjMBN00mcApOT2Wo0LRkJ9fBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
