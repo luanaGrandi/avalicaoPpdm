@@ -1,3 +1,4 @@
+import 'package:doce_encanto/carrinho.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -29,6 +30,25 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+    
+  Future<void> adicionarAoCarrinho(produto) async {
+    await FirebaseFirestore.instance.collection("carrinho").add({
+      "nome": produto["nome"],
+      "descricao": produto["descricao"],
+      "preco": produto["preco"],
+      "url_img": produto["url_img"],
+    });
+
+    //ScaffoldMessenger -> responsalvel por mostrar imagens "flutuantes" na sua tela
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar( //SnackBar -> feedback rapido para dar ao cliente
+        content: Text("Produto adicionado ao carrinho!"), //mensagem que será exibida
+        backgroundColor: Color(0xFF6F2940),
+        duration: Duration(seconds: 2), //o tempo q vai ficar visivel
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +70,14 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(40),
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: Image.asset(
               'assets/img/teste.png',
               width: 100,
-              height: 220,
+              height: 340,
               fit: BoxFit.cover,
             ),
           ),
@@ -77,12 +97,12 @@ class _HomePageState extends State<HomePage> {
 
           if (produtos.length >= 4) ...[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [_cardProduto(produtos[0]), _cardProduto(produtos[1])],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [_cardProduto(produtos[2]), _cardProduto(produtos[3])],
             ),
           ],
@@ -93,9 +113,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _cardProduto(produto) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.40,
-      height: MediaQuery.of(context).size.height * 0.50,
-      padding: const EdgeInsets.all(4),
+      width: MediaQuery.of(context).size.width * 0.35,
+      height: MediaQuery.of(context).size.height * 0.29,
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -114,52 +134,54 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           Text(
             produto["nome"],
             style: const TextStyle(
-              fontSize: 14,
+              fontSize: 19,
 
               fontWeight: FontWeight.bold,
               color: Color(0xFF513D2E),
             ),
           ),
 
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
 
           Text(
             produto["descricao"],
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 12, color: Color(0xFFBEADA0)),
+            style: const TextStyle(fontSize: 14, color: Color(0xFFBEADA0)),
           ),
 
-          const SizedBox(height: 6),
+          const SizedBox(height: 13),
 
           Text(
             "R\$ ${produto["preco"]}",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 15,
+              fontSize: 18,
               color: Color(0xFF6F2940),
             ),
           ),
 
-          const SizedBox(height: 6),
+          const SizedBox(height: 16),
 
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                adicionarAoCarrinho(produto);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFF0BFD0),
-                minimumSize: const Size(130, 32),
+                minimumSize: const Size(170, 40),
                 padding: EdgeInsets.zero,
               ),
               child: const Text(
                 "Encomendar",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 10,
+                  fontSize: 15,
                   color: Color(0xFF6F2940),
                 ),
               ),
