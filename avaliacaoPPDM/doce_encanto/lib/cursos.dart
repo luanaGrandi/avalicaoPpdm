@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doce_encanto/aulas.dart';
 import 'package:flutter/material.dart';
 
 class TelaCursos extends StatefulWidget {
@@ -140,7 +141,16 @@ class _TelaCursosState extends State<TelaCursos> {
 
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                 Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TelaAulas(
+                    cursoNome: curso["nome"],
+                  ),
+                ),
+              );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFF0BFD0),
                 padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 12),

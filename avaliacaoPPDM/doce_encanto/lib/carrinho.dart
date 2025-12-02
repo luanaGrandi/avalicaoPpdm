@@ -23,6 +23,51 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
     );
   }
 
+  Future<void> finalizarPedido() async {
+  // Mostrar popup de finalizar o pedido
+  await showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: const Text(
+          "Pedido Finalizado!",
+          style: TextStyle(
+            color: Color(0xFF6F2940),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: const Text(
+          "Seu pedido foi realizado com sucesso!",
+          style: TextStyle(color: Color(0xFF513D2E)),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              //limpar o carrinho quando apertar em ok
+              var docs = await FirebaseFirestore.instance.collection("carrinho").get();
+              for (var doc in docs.docs) {
+                await doc.reference.delete();
+              }
+
+              Navigator.pop(context); // fechar o popap
+            },
+            child: const Text(
+              "OK",
+              style: TextStyle(
+                color: Color(0xFF6F2940),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
   Future<void> aumentarQuantidade(String idDoc, int qtdAtual) async {
     await FirebaseFirestore.instance.collection("carrinho").doc(idDoc).update({
       "quantidade": qtdAtual + 1,
@@ -162,7 +207,9 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                         width: double.infinity,
                         height: 45,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            finalizarPedido();
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFFF0BFD0),
                             shape: RoundedRectangleBorder(

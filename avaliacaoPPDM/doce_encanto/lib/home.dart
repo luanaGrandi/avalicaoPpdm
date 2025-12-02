@@ -76,8 +76,7 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(15),
             child: Image.asset(
               'assets/img/teste.png',
-              width: 100,
-              height: 340,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
@@ -113,8 +112,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _cardProduto(produto) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.35,
-      height: MediaQuery.of(context).size.height * 0.29,
+      width: MediaQuery.of(context).size.width * 0.40,
+      height: MediaQuery.of(context).size.height * 0.35,
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -128,8 +127,8 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
               produto["url_img"],
-              height: 150,
-              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.17,
+              width: MediaQuery.of(context).size.width * 0.80,
               fit: BoxFit.cover,
             ),
           ),
