@@ -22,3 +22,6 @@ Levar a magia da confeitaria para perto do usuário, oferecendo um espaço onde 
 
 ---
 
+## Para fazer o login
+- email: luana@gmail.com
+- senha: 123
